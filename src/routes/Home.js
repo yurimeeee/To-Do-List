@@ -1,20 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MyCalendar from "../components/Calendar";
 import List from "../components/List";
 import Auth from "./Auth";
 
 const Main = ({ isLoggedIn, userObj }) => {
-  const [secretWord, setSecretWord] = useState("");
-  const [isShown, setIsShwon] = useState(false);
   console.log("main", userObj);
+  const [todoDate, setTodoDate] = useState([]);
+
+  const setDateArr = (arr) => {
+    let dateArr = arr.map((item) => {
+      console.log(item.date);
+      var date = new Date(item.date.toDate());
+      // var date = new Date(item.date.toDate()).toUTCString()
+
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      return `${year}-${month}-${day}`;
+      // return date.toLocaleDateString();
+      // return date;
+    });
+    setTodoDate(dateArr);
+  };
+
+  console.log(todoDate);
+
   return (
     <main>
       <div className="container">
         {" "}
         {isLoggedIn ? (
           <>
-            <MyCalendar />
-            <List userObj={userObj} />
+            <MyCalendar todoDates={todoDate} />
+            <List userObj={userObj} dateArr={setDateArr} />
           </>
         ) : (
           <Auth />

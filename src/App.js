@@ -28,6 +28,7 @@ function App() {
   return (
     <div className="App">
       <h1 className="title">To Do List</h1>
+
       {init && <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />}
     </div>
   );

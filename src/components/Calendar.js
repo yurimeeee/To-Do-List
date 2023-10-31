@@ -7,13 +7,14 @@ import "react-calendar/dist/Calendar.css";
 
 // type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-const MyCalendar = () => {
+const MyCalendar = ({ todoDates }) => {
   // const [value, onChange] = useState < Value > new Date();
-  const [value, onChange] = useState(new Date());
+  // const [value, onChange] = useState(todoDates);
+  console.log(todoDates);
 
   return (
     <div>
-      <Calendar onChange={onChange} value={value} />
+      <Calendar value={todoDates} />
     </div>
   );
 };

@@ -18,14 +18,15 @@ import { Navigate, useNavigate } from "react-router-dom";
 // import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
 //EF2420IZ0vbmDEAdOlzI7AVPFl22
-const List = ({ userObj }) => {
+const List = ({ userObj, dateArr }) => {
   console.log("list", userObj);
   const navigate = useNavigate();
-  const [todoid, setTodoid] = useState("");
+  //const [todoid, setTodoid] = useState(0);
   const [todo, setTodo] = useState([]); //조회된 글을 배열로 만듦
   // const [newList, setNewList] = useState(listObj.text); //기존 값을 초기값으로 지정
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  // const [selectedDate, setSelectedDate] = useState('new Date()');
+  const [selectedDate, setSelectedDate] = useState("");
   //DatePicker
   const today = new Date(); // 현재 날짜, 시간
   const lastWeek = new Date(today); // 현재 날짜를 복사
@@ -37,6 +38,7 @@ const List = ({ userObj }) => {
 
   // 선택한 날짜 업데이트
   const handleDateChange = (date) => {
+    console.log(date);
     setSelectedDate(date);
     console.log(selectedDate);
   };
@@ -47,8 +49,8 @@ const List = ({ userObj }) => {
     console.log("value", value);
     const text = e.target.elements.text.value;
 
-    let newId = todoid + 1;
-    setTodoid(newId); //todo는 상수라 직접 바꿀 수 없어 todoid++는 불가 todoid +1은 가능하나 느림
+    //let newId = todoid + 1;
+    //setTodoid(newId); //todo는 상수라 직접 바꿀 수 없어 todoid++는 불가 todoid +1은 가능하나 느림
 
     // const timestamp = {
     //   seconds: listObj.date.seconds,
@@ -69,9 +71,9 @@ const List = ({ userObj }) => {
       //오류 점검
       await addDoc(collection(db, "todolist"), {
         // posts는 컬렉션명
-        lid: todoid,
+        //lid: todoid,
         text: text,
-        date: `${selectedDate}`, // 선택한 날짜를 사용
+        date: selectedDate, // 선택한 날짜를 사용
         uid: userObj,
         checked: false,
       });
@@ -101,6 +103,7 @@ const List = ({ userObj }) => {
           todosData.push({ id: doc.id, ...doc.data() });
         });
         setTodo(todosData);
+        dateArr(todosData);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
