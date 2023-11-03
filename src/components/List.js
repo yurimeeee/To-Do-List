@@ -117,7 +117,7 @@ const List = ({ userObj, dateArr }) => {
     <div className="container list-wrap">
       <Form onSubmit={addTodo}>
         <Form.Group className="mb-3" controlId="todo">
-          <Form.Label>Todo</Form.Label>
+          <Form.Label></Form.Label>
           <Form.Control
             type="text"
             name="text"

@@ -55,7 +55,7 @@ const Weekly = ({ todoDate }) => {
   };
   return (
     <div className="Calendar">
-      <div className="Year-MonthList">
+      {/* <div className="Year-MonthList">
         <p>
           <span className="Year">{now.getFullYear()}</span>
           &nbsp;&nbsp;
@@ -63,43 +63,54 @@ const Weekly = ({ todoDate }) => {
             {now.toLocaleString("en-us", { month: "long" })}
           </span>
         </p>
-      </div>
+      </div> */}
       <div className="calendarChange" onClick={toggleMonthlyCalendar}>
         <span>{showMonthlyCalendar ? "전체 보기" : "주간 일정"}</span>
         <IconCalendarEvent />
       </div>
       {showMonthlyCalendar ? (
-        <div className="DayList">
-          <div className="weekly-wrap">
-            {dayList.map((day, index) => (
-              <div
-                className={`daylist ${day === today ? "today" : ""}`}
-                key={index}
-              >
+        <>
+          <div className="Year-MonthList">
+            <p>
+              <span className="Year">{now.getFullYear()}</span>
+              &nbsp;&nbsp;
+              <span className="Month">
+                {now.toLocaleString("en-us", { month: "long" })}
+              </span>
+            </p>
+          </div>
+          <div className="DayList">
+            <div className="weekly-wrap">
+              {dayList.map((day, index) => (
                 <div
-                  className={`weak ${
-                    daysOfWeek[index] === "Sun"
-                      ? "Sun"
-                      : daysOfWeek[index] === "Sat"
-                      ? "Sat"
-                      : ""
-                  }`}
+                  className={`daylist ${day === today ? "today" : ""}`}
+                  key={index}
                 >
-                  {daysOfWeek[index]}
+                  <div
+                    className={`weak ${
+                      daysOfWeek[index] === "Sun"
+                        ? "Sun"
+                        : daysOfWeek[index] === "Sat"
+                        ? "Sat"
+                        : ""
+                    }`}
+                  >
+                    {daysOfWeek[index]}
+                  </div>
+                  <div className="day">{day}</div>
                 </div>
-                <div className="day">{day}</div>
+              ))}
+              <div className="week-btns">
+                <button onClick={showPreviousWeek} className="prev">
+                  <IconChevronLeft />
+                </button>
+                <button onClick={showNextWeek} className="next">
+                  <IconChevronRight />
+                </button>
               </div>
-            ))}
-            <div className="week-btns">
-              <button onClick={showPreviousWeek} className="prev">
-                <IconChevronLeft />
-              </button>
-              <button onClick={showNextWeek} className="next">
-                <IconChevronRight />
-              </button>
             </div>
           </div>
-        </div>
+        </>
       ) : (
         <MyCalendar todoDates={todoDate} />
       )}
