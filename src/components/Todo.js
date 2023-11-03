@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../Firebase";
-//icon
-import { IconEdit } from "@tabler/icons-react";
-import { IconTrash } from "@tabler/icons-react";
-import { IconX } from "@tabler/icons-react";
-import { IconDeviceFloppy } from "@tabler/icons-react";
+import {
+  IconEdit,
+  IconTrash,
+  IconX,
+  IconDeviceFloppy,
+} from "@tabler/icons-react";
 
 const Todo = ({ listObj, userConfirm, updateTodo, deleteTodo }) => {
   const [mode, setMode] = useState("read");
@@ -18,7 +19,6 @@ const Todo = ({ listObj, userConfirm, updateTodo, deleteTodo }) => {
   let formClass = "hidden ";
   let deco = {};
   if (mode === "edit") {
-    // className += " hidden";
     formClass = "";
     btnClass += "hidden";
     labelDeco = "hidden";
@@ -34,7 +34,6 @@ const Todo = ({ listObj, userConfirm, updateTodo, deleteTodo }) => {
     await updateDoc(postRef, {
       checked: isChecked,
     });
-    // window.location.reload();
   };
 
   // Mode 변경
@@ -48,7 +47,6 @@ const Todo = ({ listObj, userConfirm, updateTodo, deleteTodo }) => {
   // edit
   const handleEdit = (val) => {
     setNewList(val);
-    console.log(newList);
   };
 
   const todoUpdate = async (e) => {
@@ -63,7 +61,6 @@ const Todo = ({ listObj, userConfirm, updateTodo, deleteTodo }) => {
 
   //delete
   const todoDelete = async (e) => {
-    // deleteTodo(listObj.id);
     e.preventDefault();
     if (window.confirm("정말 삭제할까요?")) {
       await deleteDoc(doc(db, "todolist", listObj.id));
@@ -71,10 +68,36 @@ const Todo = ({ listObj, userConfirm, updateTodo, deleteTodo }) => {
     }
   };
 
+  //날짜 변환
+
+  const transDate = (date) => {
+    var dates = new Date(date.toDate());
+    let month = dates.getMonth() + 1;
+    let day = dates.getDate();
+    return `${month}.${day}`;
+  };
+
+  const dDay = (date) => {
+    const currentDate = new Date();
+    const targetDate = date.toDate();
+    const timeDiff = targetDate.getTime() - currentDate.getTime();
+    const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    if (dayDiff === 0) {
+      return "D-DAY";
+    } else if (dayDiff > 0) {
+      return `D-${dayDiff}`;
+    } else {
+      return `D+${Math.abs(dayDiff)}`;
+    }
+  };
+  // console.log("날짜", new Date());
+  // console.log(transDate(new Date()));
+
   return (
     userConfirm && (
       <div className="d-flex justify-content-between ">
-        <div class="form-check d-flex justify-content-between gap-2">
+        <div class="form-check d-flex justify-content-between align-items-center gap-2">
           <input
             className="form-check-input"
             type="checkbox"
@@ -92,10 +115,15 @@ const Todo = ({ listObj, userConfirm, updateTodo, deleteTodo }) => {
             style={deco}
           >
             {listObj.text}
+            {/* <span>{listObj.text}</span> */}
+            <span className="d-day">
+              <span>{transDate(listObj.date)}</span>
+              <span>{dDay(listObj.date)}</span>
+            </span>
           </label>
 
           <form className={formClass} onSubmit={todoUpdate}>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-betwee align-items-center">
               <input
                 className="form-control edit-input"
                 type="text"
@@ -122,10 +150,10 @@ const Todo = ({ listObj, userConfirm, updateTodo, deleteTodo }) => {
           </form>
         </div>
         <div className={btnClass}>
-          <button type="button" className="btns edit_btn" onClick={todoEdit}>
+          <button type="button" className="btns edit-btn" onClick={todoEdit}>
             <IconEdit />
           </button>
-          <button type="button" className="btns del_btn" onClick={todoDelete}>
+          <button type="button" className="btns del-btn" onClick={todoDelete}>
             <IconTrash />
           </button>
         </div>

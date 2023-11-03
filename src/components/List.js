@@ -114,7 +114,7 @@ const List = ({ userObj, dateArr }) => {
 
   // 할 일 입력
   return (
-    <div className="container list_wrap">
+    <div className="container list-wrap">
       <Form onSubmit={addTodo}>
         <Form.Group className="mb-3" controlId="todo">
           <Form.Label>Todo</Form.Label>
@@ -147,14 +147,13 @@ const List = ({ userObj, dateArr }) => {
         </button>
       </Form>
       <div>
-        <ul className="list_ul">
+        <ul className="list-ul">
           {todo.map((item) => (
             <Todo
               key={item.id}
               listObj={item}
               userConfirm={item.uid === userObj}
               todo={todo}
-              // updateTodo={updateTodo}
             ></Todo>
           ))}
         </ul>

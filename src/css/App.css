@@ -1,13 +1,52 @@
-.container.list_wrap {
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&display=swap");
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+.App {
+  text-align: center;
+}
+.container {
+  width: 560px;
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 560px !important;
+  }
+}
+
+/* calendar start*/
+.react-calendar {
+  margin: 30px auto;
+}
+.react-calendar__tile--hasActive {
+  background: #fff !important;
+  position: relative;
+}
+.react-calendar__tile--hasActive :after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #0d6efd;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* calendar end */
+.container.list-wrap {
   width: 450px;
 }
-.container.list_wrap .submit_btn {
+.container.list-wrap .submit_btn {
   background: #f3fdd6;
 }
-.container.list_wrap .submit_btn:hover {
+.container.list-wrap .submit_btn:hover {
   background: #efffbf;
 }
-.container.list_wrap .submit_btn:focus {
+.container.list-wrap .submit_btn:focus {
   background: #f3ffce;
   border: 1px solid #c5d2a2;
 }
@@ -25,7 +64,7 @@
   margin-right: 96px;
 }
 
-.list_ul > div {
+.list-ul > div {
   height: 36px;
   margin-bottom: 4px;
 }
@@ -40,12 +79,12 @@
   height: 35px;
 }
 
-.edit_btn:hover {
+.edit-btn:hover {
   background: #ebf4ff;
   color: #6c9ced;
 }
 
-.del_btn:hover {
+.del-btn:hover {
   background: #ffeeeb;
   color: #f58f7d;
 }
@@ -69,4 +108,97 @@
 
 .form-check-input[type="checkbox"] {
   border-radius: 50% !important;
+}
+
+.list-ul label {
+  position: relative;
+  width: 300px;
+  display: inline-block;
+  text-align: left;
+}
+.d-day {
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  text-align: center;
+  font-size: 13px;
+}
+.d-day span {
+  color: #767676;
+  width: 50px;
+  display: inline-block;
+  text-align: center;
+}
+
+.d-day span:last-child {
+  background-color: #fffeef;
+  border-radius: 3px;
+}
+
+/* weekly */
+.weekly-wrap {
+  display: inline-flex;
+  justify-content: center;
+  position: relative;
+}
+.daylist {
+  margin: 0 5px;
+  padding: 15px 20px;
+  border-radius: 40px;
+  transition: 0.3s;
+}
+.weak {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.Sat {
+  color: rgb(64, 82, 129);
+}
+.Sun {
+  color: red;
+}
+.daylist.today {
+  border: 1px solid #22486184;
+}
+.daylist:hover {
+  background: #224861;
+  color: #ebf4ff;
+}
+.daylist:hover .Sat {
+  color: #ebf4ff;
+}
+.daylist:hover .Sun {
+  color: #ff6363;
+}
+
+.week-btns {
+  /* position: absolute; */
+  top: 50%;
+}
+.week-btns button {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #22486184;
+}
+.prev {
+  left: -50px;
+}
+.next {
+  right: -50px;
+}
+
+.calendarChange {
+  font-size: 14px;
+  gap: 5px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.calendarChange svg {
+  width: 20px;
+  height: 20px;
 }

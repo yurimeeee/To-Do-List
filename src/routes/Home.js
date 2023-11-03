@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import MyCalendar from "../components/Calendar";
 import List from "../components/List";
 import Auth from "./Auth";
+import Weekly from "../components/Weekly";
+// import Search from "../components/Search";
 
 const Main = ({ isLoggedIn, userObj }) => {
   console.log("main", userObj);
@@ -23,7 +25,7 @@ const Main = ({ isLoggedIn, userObj }) => {
     setTodoDate(dateArr);
   };
 
-  console.log(todoDate);
+  // console.log(todoDate);
 
   return (
     <main>
@@ -31,7 +33,9 @@ const Main = ({ isLoggedIn, userObj }) => {
         {" "}
         {isLoggedIn ? (
           <>
-            <MyCalendar todoDates={todoDate} />
+            {/* <Search /> */}
+            <Weekly todoDates={todoDate} />
+            {/* <MyCalendar todoDates={todoDate} /> */}
             <List userObj={userObj} dateArr={setDateArr} />
           </>
         ) : (
